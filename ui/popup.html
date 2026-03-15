@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scholaflow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ═══════════════════════════════════════════════════════════════
+       LOGGED-OUT VIEW
+  ════════════════════════════════════════════════════════════════ -->
+  <div id="view-login" class="view" hidden>
+    <div class="header">
+      <img src="../icons/icon48.png" alt="Scholaflow" class="logo" />
+      <h1 class="app-title">Scholaflow</h1>
+    </div>
+
+    <form id="login-form" class="form" autocomplete="on" novalidate>
+      <div class="field">
+        <label for="input-username">Username</label>
+        <input
+          id="input-username"
+          name="username"
+          type="text"
+          autocomplete="username"
+          placeholder="your@email.com"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="input-password">Password</label>
+        <input
+          id="input-password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div id="login-error" class="error-message" hidden></div>
+
+      <button id="btn-login" type="submit" class="btn btn-primary">
+        <span class="btn-label">Sign in</span>
+        <span class="btn-spinner spinner" hidden></span>
+      </button>
+    </form>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       LOGGED-IN VIEW
+  ════════════════════════════════════════════════════════════════ -->
+  <div id="view-paper" class="view" hidden>
+
+    <!-- Header bar -->
+    <div class="header header-paper">
+      <img src="../icons/icon48.png" alt="Scholaflow" class="logo logo-sm" />
+      <span class="header-username" id="header-username"></span>
+      <button id="btn-logout" class="btn btn-ghost btn-sm">Logout</button>
+    </div>
+
+    <!-- ── Idle: detect button ──────────────────────────────── -->
+    <div id="panel-idle" class="detect-panel">
+      <p class="detect-hint">Click below to scan this page for paper metadata.</p>
+      <button id="btn-detect" class="btn btn-primary btn-full">
+        <span class="btn-label">Detect Paper</span>
+        <span class="btn-spinner spinner" hidden></span>
+      </button>
+    </div>
+
+    <!-- ── Detecting: spinner ──────────────────────────────── -->
+    <div id="panel-detecting" class="loading-state" hidden>
+      <div class="spinner spinner-lg"></div>
+      <p>Detecting paper…</p>
+    </div>
+
+    <!-- ── Not found ───────────────────────────────────────── -->
+    <div id="panel-none" class="empty-state" hidden>
+      <p class="empty-icon">📄</p>
+      <p id="panel-none-msg">No academic paper detected on this page.</p>
+      <button id="btn-retry" class="btn btn-ghost btn-sm" style="margin-top:8px">Try again</button>
+    </div>
+
+    <!-- ── Paper form ──────────────────────────────────────── -->
+    <form id="paper-form" class="paper-form" hidden novalidate>
+
+      <!-- Source badge + reset -->
+      <div class="form-header-row">
+        <div class="source-badge" id="source-badge" hidden>
+          <span id="source-label"></span>
+        </div>
+        <button type="button" id="btn-reset" class="btn btn-ghost btn-sm">← Back</button>
+      </div>
+
+      <!-- Title -->
+      <div class="field">
+        <label for="field-title">Title</label>
+        <textarea id="field-title" name="title" rows="2" placeholder="Paper title"></textarea>
+      </div>
+
+      <!-- Authors -->
+      <div class="field">
+        <label for="field-authors">Authors</label>
+        <input id="field-authors" name="authors" type="text" placeholder="Author 1, Author 2, …" />
+      </div>
+
+      <!-- Journal + Year -->
+      <div class="row-fields">
+        <div class="field field-flex-3">
+          <label for="field-journal">Journal / Venue</label>
+          <input id="field-journal" name="journal" type="text" />
+        </div>
+        <div class="field field-flex-1">
+          <label for="field-year">Year</label>
+          <input id="field-year" name="year" type="number" min="1900" max="2099" />
+        </div>
+      </div>
+
+      <!-- Volume / Issue / Pages -->
+      <div class="row-fields">
+        <div class="field">
+          <label for="field-volume">Vol.</label>
+          <input id="field-volume" name="volume" type="text" />
+        </div>
+        <div class="field">
+          <label for="field-issue">Issue</label>
+          <input id="field-issue" name="issue" type="text" />
+        </div>
+        <div class="field field-flex-2">
+          <label for="field-pages">Pages</label>
+          <input id="field-pages" name="pages" type="text" placeholder="e.g. 1–12" />
+        </div>
+      </div>
+
+      <!-- DOI -->
+      <div class="field">
+        <label for="field-doi">DOI</label>
+        <input id="field-doi" name="doi" type="text" placeholder="10.xxxx/…" />
+      </div>
+
+      <!-- Abstract -->
+      <div class="field">
+        <label for="field-abstract">Abstract</label>
+        <textarea id="field-abstract" name="abstract" rows="4" placeholder="Abstract…"></textarea>
+      </div>
+
+      <!-- PDF checkbox -->
+      <div class="checkbox-row">
+        <input id="chk-pdf" type="checkbox" name="attach_pdf" />
+        <label for="chk-pdf">
+          Attach PDF
+          <span id="pdf-url-badge" class="pdf-badge" hidden>PDF detected</span>
+        </label>
+      </div>
+
+      <!-- Errors / success -->
+      <div id="save-error" class="error-message" hidden></div>
+      <div id="save-success" class="success-message" hidden></div>
+
+      <!-- Progress log -->
+      <ul id="progress-log" class="progress-log" hidden></ul>
+
+      <!-- Save button -->
+      <div class="actions">
+        <button id="btn-save" type="submit" class="btn btn-primary btn-full">
+          <span class="btn-label">Save to Scholaflow</span>
+          <span class="btn-spinner spinner" hidden></span>
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       INITIAL AUTH CHECK SPINNER
+  ════════════════════════════════════════════════════════════════ -->
+  <div id="view-loading" class="view view-loading">
+    <div class="spinner spinner-lg"></div>
+  </div>
+
+  <script src="popup.js" type="module"></script>
+</body>
+</html>
