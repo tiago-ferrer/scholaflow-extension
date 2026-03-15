@@ -46,10 +46,23 @@ export async function extract(snapshot) {
   // PDF URL
   const pdfUrl = deriveArxivPdf(snapshot.pageUrl) ?? m["citation_pdf_url"];
 
+  // Use the meta tag journal if present (set for published papers), otherwise
+  // leave null so DOI enrichment can fill in the real journal/volume/issue.
+  const journal =
+    m["citation_journal_title"] ??
+    m["citation_conference_title"] ??
+    null;
+
   return {
     title,
     authors,
-    journal: "arXiv",
+    journal,
+    volume: m["citation_volume"] ?? null,
+    issue:  m["citation_issue"] ?? null,
+    pages:
+      m["citation_firstpage"] && m["citation_lastpage"]
+        ? `${m["citation_firstpage"]}-${m["citation_lastpage"]}`
+        : null,
     year,
     doi,
     abstract: abstract ? abstract.replace(/^Abstract:\s*/i, "").trim() : null,

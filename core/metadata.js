@@ -93,10 +93,19 @@ export async function extractMetadata(snapshot) {
   }
 
   // 6. DOI extraction then API enrichment
+  // Always enrich when any bibliographic field is missing — not just when
+  // title/authors are absent. arXiv always provides title + authors via meta
+  // tags but never has journal/volume/issue for the published version.
   const doi = meta.doi ?? extractDOIFromSnapshot(snapshot);
   if (doi) {
     meta.doi = doi;
-    if (!meta.title || !meta.authors?.length) {
+    const needsEnrichment =
+      !meta.title ||
+      !meta.authors?.length ||
+      !meta.journal ||
+      !meta.volume ||
+      !meta.year;
+    if (needsEnrichment) {
       try {
         const enriched = await enrichFromDOI(doi);
         meta = merge(meta, enriched);

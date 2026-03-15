@@ -67,15 +67,31 @@ html, body {
   margin-bottom: 12px;
 }
 
-.logo { width: 32px; height: 32px; }
-.logo-sm { width: 22px; height: 22px; }
-
-.app-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-primary);
-  flex: 1;
+/* Google Sans is served by Google's internal CDN, not fonts.google.com.
+   The font-face below loads it when available (Chrome on Google services),
+   otherwise falls through to the identical-weight system alternatives. */
+@font-face {
+  font-family: "Google Sans";
+  src: url("https://fonts.gstatic.com/s/googlesans/v58/4UaGrENHsxJlGDuGo1OIlL3Kwp5MKg.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
+
+.text-logo {
+  font-family: "Google Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.text-logo-lg  { font-size: 26px; }
+.text-logo-sm  { font-size: 16px; }
+
+.logo-schola { color: #447EE2; }
+.logo-flow   { color: #596772; }
 
 .header-username {
   font-size: 12px;
