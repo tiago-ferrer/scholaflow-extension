@@ -7,7 +7,7 @@
  */
 
 const AUTH_STORAGE_KEY = "scholaflow_auth";
-const API_BASE = "http://localhost:8989";
+const API_BASE = "https://b-paperhub.tferrer.dev";
 
 /**
  * @typedef {Object} AuthSession

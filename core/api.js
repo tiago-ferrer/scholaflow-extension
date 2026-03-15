@@ -7,7 +7,7 @@
 
 import { getAuthHeader } from "./auth.js";
 
-const API_BASE = "http://localhost:8989";
+const API_BASE = "https://b-paperhub.tferrer.dev";
 
 /**
  * @typedef {Object} PaperPayload
