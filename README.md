@@ -1,6 +1,6 @@
 # Scholaflow
 
-A browser extension for saving academic papers and PDFs directly to [Scholaflow](https://b-paperhub.tferrer.dev) from any web page. Works on Chrome, Brave, Edge, and Firefox.
+A browser extension for saving academic papers and PDFs directly to [Scholaflow](https://api.scholaflow.com) from any web page. Works on Chrome, Brave, Edge, and Firefox.
 
 ---
 
@@ -32,7 +32,7 @@ A browser extension for saving academic papers and PDFs directly to [Scholaflow]
 
 - **Node.js** 18+ (only needed for development tooling — the extension itself has no build step)
 - A modern browser: Chrome 109+, Edge 109+, Brave (any recent), or Firefox 128+
-- A Scholaflow account at `https://b-paperhub.tferrer.dev`
+- A Scholaflow account at `https://api.scholaflow.com`
 
 No bundler, no transpiler, no `npm install` required. The extension is pure ES modules loaded directly by the browser.
 
@@ -349,7 +349,7 @@ AMO review is stricter and may take **1–2 weeks** for the first submission.
 
 The API base URL is defined in two places. To point the extension at a different backend (e.g. local development server), update both:
 
-- `core/auth.js` — `const API_BASE = "https://b-paperhub.tferrer.dev"`
-- `core/api.js` — `const API_BASE = "https://b-paperhub.tferrer.dev"`
+- `core/auth.js` — `const API_BASE = "https://api.scholaflow.com"`
+- `core/api.js` — `const API_BASE = "https://api.scholaflow.com"`
 
 > There is intentionally no build-time config system to keep the extension dependency-free. If you find yourself needing multiple environments frequently, consider adding a simple `core/config.js` that exports `API_BASE` and importing it from both files.
