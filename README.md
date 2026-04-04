@@ -46,7 +46,7 @@ No bundler, no transpiler, no `npm install` required. The extension is pure ES m
 
    ```bash
    git clone <repo-url>
-   cd paperhub-extension
+   cd scholaflow-extension
    ```
 
 2. **Open the extensions page** in your browser:
@@ -59,7 +59,7 @@ No bundler, no transpiler, no `npm install` required. The extension is pure ES m
 
 3. **Enable Developer Mode** using the toggle in the top-right corner.
 
-4. Click **Load unpacked** and select the `paperhub-extension/` directory (the folder that contains `manifest.json`).
+4. Click **Load unpacked** and select the `scholaflow-extension/` directory (the folder that contains `manifest.json`).
 
 5. The **Scholaflow** icon appears in your toolbar. Pin it for easy access.
 
@@ -77,7 +77,7 @@ Firefox MV3 support is available from Firefox 128+. Before loading, add the Fire
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "paperhub-connector@paperhub.dev",
+      "id": "scholaflow-connector@scholaflow.dev",
       "strict_min_version": "128.0"
     }
   }
@@ -89,7 +89,7 @@ Then:
 1. Open `about:debugging`
 2. Click **This Firefox** in the left sidebar
 3. Click **Load Temporary Add-on…**
-4. Navigate to the `paperhub-extension/` folder and select `manifest.json`
+4. Navigate to the `scholaflow-extension/` folder and select `manifest.json`
 
 > Temporary add-ons are removed when Firefox closes. For a persistent install you must sign the extension via [AMO](#firefox-add-ons-amo).
 
@@ -98,7 +98,7 @@ Then:
 ## Project Structure
 
 ```
-paperhub-extension/
+scholaflow-extension/
 ├── manifest.json           Extension manifest (MV3)
 │
 ├── background/
@@ -185,7 +185,7 @@ You can also add `debugger;` statements to `content/content.js` and they will pa
 To inspect the snapshot that `content.js` produces, paste this in the page console after the extension is injected:
 
 ```js
-chrome.runtime.sendMessage({ type: 'PAPERHUB_GET_SNAPSHOT' }, console.log)
+chrome.runtime.sendMessage({ type: 'SCHOLAFLOW_GET_SNAPSHOT' }, console.log)
 ```
 
 ---
@@ -235,7 +235,7 @@ done
 Create a production ZIP of the extension (exclude dev files and hidden directories):
 
 ```bash
-cd paperhub-extension
+cd scholaflow-extension
 
 zip -r scholaflow.zip . \
   --exclude "*.git*" \
@@ -304,12 +304,12 @@ Review typically takes **1–3 business days** for new extensions.
 The Chrome Web Store **requires a privacy policy URL** because the extension:
 - Handles authentication credentials
 - Reads page content
-- Sends data to an external server (`b-paperhub.tferrer.dev`)
+- Sends data to an external server (`api.scholaflow.com`)
 
-Host a privacy policy at a stable URL (e.g. `https://paperhub.tferrer.dev/privacy`) that covers:
+Host a privacy policy at a stable URL (e.g. `https://scholaflow.com/privacy`) that covers:
 
 - What data is collected (credentials, paper metadata, PDF content)
-- Where it is sent (PaperHub backend)
+- Where it is sent (scholaflow backend)
 - How the JWT token is stored (locally in browser storage, never transmitted to third parties)
 - How users can delete their data
 

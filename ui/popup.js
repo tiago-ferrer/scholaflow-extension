@@ -251,7 +251,7 @@ paperForm.addEventListener("submit", async (e) => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tab?.id) {
       chrome.tabs.sendMessage(tab.id, {
-        type: "PAPERHUB_SHOW_SAVED_BADGE",
+        type: "SCHOLAFLOW_SHOW_SAVED_BADGE",
         paperId: created.id,
         title: created.title ?? paper.title,
       });

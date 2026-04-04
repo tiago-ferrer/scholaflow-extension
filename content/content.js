@@ -11,7 +11,7 @@
  */
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  if (message.type === "PAPERHUB_GET_SNAPSHOT") {
+  if (message.type === "SCHOLAFLOW_GET_SNAPSHOT") {
     try {
       const snapshot = buildSnapshot();
       sendResponse({ ok: true, snapshot });
@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     return true;
   }
 
-  if (message.type === "PAPERHUB_SHOW_SAVED_BADGE") {
+  if (message.type === "SCHOLAFLOW_SHOW_SAVED_BADGE") {
     showSavedBadge(message.title);
     sendResponse({ ok: true });
     return true;

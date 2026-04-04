@@ -106,7 +106,7 @@ async function handleGetMetadata(sendResponse) {
     }
 
     const contentResponse = await chrome.tabs.sendMessage(tab.id, {
-      type: "PAPERHUB_GET_SNAPSHOT",
+      type: "SCHOLAFLOW_GET_SNAPSHOT",
     });
 
     if (!contentResponse?.ok) {
